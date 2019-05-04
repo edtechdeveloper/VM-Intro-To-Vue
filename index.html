@@ -1,49 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Vue Mastery - Intro to Vue Course</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div id="app">
-        <div class="nav-bar"></div>
-        <div class="product">
-            <div class="product-image">
-                <img :src="image">
-            </div>
-            <div class="product-info">
-                <h1>{{ title }}</h1>
-                <span v-if="onSale">On Sale!</span>
-                <small v-show="!inStock" :class="{outOfStock: !inStock}"> Out of Stock</small>
-                <p>{{ description }}</p>
-                <h3>Details:</h3>
-                <ul v-for="detail in details">
-                    <li>{{ detail }}</li>
-                </ul>
-                <hr>
-                <h3>Size:</h3>
-                <ul v-for="size in sizes">
-                    <li>{{ size }}</li>
-                </ul>
-                <small><a :href="sizeChart" target="_blank">Size Chart</a></small>
-                <hr>
-                <div>
-                    <h4>Purchase Options:</h4>
-                    <div v-for="(variant, index) in variants" :key="variant.variantId" class="color-box" :style="{ backgroundColor: variant.variantColor }" @mouseover="updateProductImage(index)">
-                    </div>
-                    <button @click="addToCart" :disabled="!inStock" :class="{disabledButton: !inStock }">Add to Cart</button>
-                    <p v-show="cart >= 1" @click="undoLastItem"><small><i>Undo add to cart.</i></small></p>
-                </div>
-            </div>
-        </div>
-        <div class="cart">
-            <p>Cart({{cart}})</p>
-        </div>
+      <div class="nav-bar"></div>
+      <div class="cart">
+        <p>Cart({{ cart.length }})</p>
+      </div>
+      <product
+        :premium="premium"
+        @add-to-cart="updateCart"
+        @remove-from-cart="removeItem"
+      ></product>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
     <script src="main.js"></script>
-</body>
+  </body>
 </html>
